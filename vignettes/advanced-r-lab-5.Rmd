@@ -1,3 +1,41 @@
+---
+title: "Accessing Kolada API"
+author: "Eleftheria Chatzitheodoridou, Salvador Marti Roman"
+date: "`r Sys.Date()`"
+output: 
+  rmarkdown::html_vignette:
+  toc: true
+vignette: >
+  %\VignetteIndexEntry{Accessing Kolada API}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  echo = TRUE
+)
+```
+
+```{r, include = FALSE}
+library(httr)
+library(jsonlite)
+library(AdvancedRlab5)
+```
+
+# About the Kolada API
+
+The Kolada API provides a web-service that accesses Key Performance Indicators (KPI) of Swedish municipalities and organizational units. The open source database gives user access to approximately 5.000 figures, which can be useful for data analysis. Within the database we can find two types of data:
+
+1. Municipal data
+
+2. Organizational unit data
+
+A detailed description can be found on the following website: <https://github.com/Hypergene/kolada/blob/master/README.rst>
+
+```{r echo = FALSE}
 library(httr)
 library(jsonlite)
 
@@ -112,3 +150,4 @@ get_search_results = function(kpi_list=NULL, municipality_list=NULL,year_list=NU
 # c = get_kpi("Män som tar ut tillfällig föräldrapenning")
 # d = get_kpi_groups("kostnad")
 # e = get_search_results("add example pls")
+```

@@ -2,22 +2,20 @@ Package: AdvancedRlab5
 Type: Package
 Title: Advanced R Programming Lab 5 Assignment
 Version: 0.1
-Date: 2020-09-21
+Date: 2020-10-05
 Authors@R: c(
     person("Salvador", "Marti Roman", email = "salvador19marti@gmail.com", role = "aut"),
     person("Eleftheria", "Chatzitheodoridou", email = "e.hatzitheodoridi@gmail.com", role = c("aut", "cre"))) 
 Maintainer: Salvador Marti Roman <salvador19marti@gmail.com>
-Description: Test package implementing Multiple Linear Regression.
+Description: In this package, we are connecting to the Kolada API using R. The purpose of the package is to read the data taken from the aforementioned API and display it by introducing four functions corresponding to municipal and organizational unit data.
 Encoding: UTF-8
-Depends: 
-    R (>= 3.3.0)
-LazyData: true
+Depends: R (>= 3.3.0),
+    httr,
+    jsonlite
 License: GPL-3
 Imports:
     ggplot2
-Suggests: 
-    testthat,
-    ggplot2,
+Suggests: testthat,
     knitr,
     rmarkdown
 RoxygenNote: 7.1.1
