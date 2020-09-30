@@ -42,3 +42,65 @@ kolada_api <- function(path) {
     class = "kolada_api"
   )
 }
+
+get_municipality = function(name){
+  stopifnot(is.character(name))
+  stopifnot(!grepl("/",name, fixed=TRUE))
+  
+  name = URLencode(name)
+  response = kolada_api(paste("municipality?title=",name,sep=""))
+  return(response$content)
+}
+
+
+get_municipality_group = function(name){
+  stopifnot(is.character(name))
+  stopifnot(!grepl("/",name, fixed=TRUE))
+  
+  name = URLencode(name)
+  response = kolada_api(paste("municipality?ou=",name,sep=""))
+  return(response$content)
+}
+
+get_kpi = function(name){
+  
+  stopifnot(is.character(name))
+  stopifnot(!grepl("/",name, fixed=TRUE))
+  
+  name = URLencode(name)
+  response = kolada_api(paste("kpi?title=",name,sep=""))
+  return(response$content)
+}
+
+get_kpi_groups = function(name){
+  
+  stopifnot(is.character(name))
+  stopifnot(!grepl("/",name, fixed=TRUE))
+  
+  name = URLencode(name)
+  response = kolada_api(paste("kpi_groups?title=",name,sep=""))
+  return(response$content)
+}
+
+get_search_results = function(kpi_list=NULL, municipality_list=NULL,year_list=NULL){
+  
+  params = list(kpi=kpi_list,
+             municipality=municipality_list,
+             year=year_list)
+  
+  #Filter unused arguments
+  params[sapply(params, is.null)] = NULL
+  
+  #Input checking
+  sapply(params, function(x) stopifnot(is.list(x)))
+  
+  #Translate R term list into api term list
+  search_terms = sapply(params, function(x) paste(x,collapse=","))
+  
+  #Build path from search terms
+  path = paste(lapply(names(search_terms), function(x) paste(x,search_terms[x], sep="/"))
+        ,collapse = "/")
+  
+  response = kolada_api(paste("data/", path,sep=""))
+  return(response$content)
+}
