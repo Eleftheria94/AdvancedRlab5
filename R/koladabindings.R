@@ -1,8 +1,20 @@
-library(httr)
-library(jsonlite)
+################################################################################
+#
+#name = "Salvador Marti Roman & Eleftheria Chatzitheodoridou"
+#liuid = "salma742 & elech646"
+#
+# 732A94 Advanced R Programming
+# Computer lab 5 
+# package.skeleton(name="AdvancedRlab5")
+# Deadline: 04 October 23:59
+################################################################################
+
 
 # Modified template from Best Practices for API Packages 
 # https://cran.r-project.org/web/packages/httr/vignettes/api-packages.html
+
+require(httr)
+require(jsonlite)
 
 kolada_api <- function(path) {
   
@@ -17,10 +29,10 @@ kolada_api <- function(path) {
     stop("API did not return json", call. = FALSE)
   }
   
-  #Json parser
+  #Json parser-Deserialization
   parsed <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
   
-  # Check Response OK
+  # Check Server Response 
   if (status_code(resp) != 200) {
     stop(
       sprintf(
@@ -44,7 +56,16 @@ kolada_api <- function(path) {
   )
 }
 
+#' Get municipalities
+#' 
+#' @param name The name of the municipality we want to access.
+#' 
+#' @return Returns a data frame that contain all municipalities.
+#' @export
+#'
 get_municipality = function(name){
+  #http://api.kolada.se/v2/municipality?title=lund
+  
   stopifnot(is.character(name))
   stopifnot(!grepl("/",name, fixed=TRUE)) # checking if a string is in another string
   
@@ -53,8 +74,16 @@ get_municipality = function(name){
   return(response$content)
 }
 
-
+#' Get a municipality's organizational units
+#' 
+#' @param name The name/code id of the municipality's organizational unit we want to access.
+#' 
+#' @return Returns a data frame that contains all organizational units of a municipality.
+#' @export
+#'
 get_municipality_groups = function(name){
+  #http://api.kolada.se/v2/ou?municipality=1280
+  
   stopifnot(is.character(name))
   stopifnot(!grepl("/",name, fixed=TRUE))
   
@@ -63,7 +92,15 @@ get_municipality_groups = function(name){
   return(response$content)
 }
 
+#' Get KPI
+#'
+#' @param name The name of the kpi we want to access.
+#' 
+#' @return Returns a data frame that contains for a specific KPI with its id and description.
+#' @export
+#'
 get_kpi = function(name){
+  #http://api.kolada.se/v2/kpi?title=kvinnofridskränkning
   
   stopifnot(is.character(name))
   stopifnot(!grepl("/",name, fixed=TRUE))
@@ -73,7 +110,15 @@ get_kpi = function(name){
   return(response$content)
 }
 
+#' Get KPI groups
+#' 
+#' @param name The name of the group we want to access.
+#' 
+#' @return Returns a data frame that contains information about a specific kpi group.
+#' @export
+#'
 get_kpi_groups = function(name){
+  #http://api.kolada.se/v2/kpi_groups?title=kostnad
   
   stopifnot(is.character(name))
   stopifnot(!grepl("/",name, fixed=TRUE))
@@ -83,7 +128,17 @@ get_kpi_groups = function(name){
   return(response$content)
 }
 
+#' Get Search Results
+#' 
+#' @param kpi Id of the KPIs as a list.
+#' @param municipality Id of the municipality.
+#' @param year The years to get.
+#' 
+#' @return Returns a data frame that contains data about KPIs in a given municipality by a specific (user-defined) year.
+#' @export
+#'
 get_search_results = function(kpi_list=NULL, municipality_list=NULL,year_list=NULL){
+  #http://api.kolada.se/v2/data/kpi/N07402/municipality/1280/year/2011
   
   params = list(kpi=kpi_list,
              municipality=municipality_list,
@@ -112,3 +167,4 @@ get_search_results = function(kpi_list=NULL, municipality_list=NULL,year_list=NU
 # c = get_kpi("Män som tar ut tillfällig föräldrapenning")
 # d = get_kpi_groups("kostnad")
 # e = get_search_results("add example pls")
+

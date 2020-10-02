@@ -30,28 +30,29 @@ test_that("Wrong user input is detected from get_kpi()", {
 test_that("get_municipality() is working", {
   df = get_municipality()
   expect_true(is.data.frame(df))
-  expect_equal(df[5, "values.id"], "1984")
+  expect_equal(df[5, "values.id"], "1280")
 })
 
 test_that("get_kpi() is working", {
   df = get_kpi()
   expect_true(is.data.frame(df))
-  expect_equal(df[6, "member_id"], "U28119")
+  expect_equal(df[6, "values.id"], "NO7402")
 })
 
 test_that("get_municipality_groups() is working", {
-  df = get_municipality_groups(1440, 2012)
+  df = get_municipality_groups()
   expect_true(is.data.frame(df))
-  expect_equal(df[5, "values.kpi"], "N00011")
+  expect_equal(df[5, "values.id"], "V15E128000301")
 })
 
 test_that("get_kpi_groups() is working", {
-  df = get_kpi_groups(list("N00914", "U00405"), 1440, list(2010, 2011, 2012))
+  df = get_kpi_groups()
   expect_true(is.data.frame(df))
-  expect_equal(df[5, "values.kpi"], "U00405")
+  expect_equal(df[6, "member_id"], "U28119")
 })
 
 test_that("get_search_results() is working", {
-  # Add test case please?
-  
-}
+  df = get_search_results(list("N00914", "U00405"), 1440, list(2010, 2011, 2012))
+  expect_true(is.data.frame(df))
+  expect_equal(df[5, "values.kpi"], "U00405")
+})
