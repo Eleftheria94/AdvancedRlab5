@@ -164,10 +164,3 @@ get_search_results = function(kpi_list=NULL, municipality_list=NULL,year_list=NU
   response = kolada_api(paste("data/", path,sep=""))
   return(response$content)
 }
-
-# Examples for testing:
-# mun = get_municipality("lund")
- mun_group = get_municipality_groups("skola")
- kpi = get_kpi("kvinnofridskränkning")
- kpi_group = get_kpi_groups("kostnad")
- search_res = get_search_results(kpi_list = list("N00945"), year_list = list(2009,2010))

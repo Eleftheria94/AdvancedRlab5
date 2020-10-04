@@ -10,11 +10,11 @@ Maintainer: Salvador Marti Roman <salvador19marti@gmail.com>
 Description: In this package, we are connecting to the Kolada API using R. The purpose of the package is to read the data taken from the aforementioned API and display it by introducing four functions corresponding to municipal and organizational unit data.
 Encoding: UTF-8
 Depends: R (>= 3.3.0),
-    httr,
-    jsonlite
 License: GPL-3
 Suggests: testthat,
     knitr,
-    rmarkdown
+    rmarkdown,
+    httr,
+    jsonlite
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
