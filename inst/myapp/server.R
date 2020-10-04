@@ -9,7 +9,7 @@ source('C:/Users/marip/Documents/Advanced R_732A94/Labs/AdvancedRlab5/R/koladabi
 
 server = function(input, output) {
     out <- reactive({
-    municipalitiesDataFrame = get_municipality("lund") # is of list class so we will convert it to a data.frame
+    municipalitiesDataFrame = get_municipality(name) # is of list class so we will convert it to a data.frame
     municipalitiesDataFrame = as.data.frame(municipalitiesDataFrame)
     municipalityId = municipalitiesDataFrame 
     })
