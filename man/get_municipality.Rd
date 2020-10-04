@@ -10,7 +10,7 @@ get_municipality(name)
 \item{name}{The name of the municipality we want to access.}
 }
 \value{
-Returns a data frame that contains all municipalities.
+Returns a list that contains all municipalities.
 }
 \description{
 Get municipalities

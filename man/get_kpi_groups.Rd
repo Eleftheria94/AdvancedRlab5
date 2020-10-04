@@ -10,7 +10,7 @@ get_kpi_groups(name)
 \item{name}{The name of the group we want to access.}
 }
 \value{
-Returns a data frame that contains information about a specific kpi group.
+Returns a list that contains information about a specific kpi group.
 }
 \description{
 Get KPI groups

@@ -10,7 +10,7 @@ get_kpi(name)
 \item{name}{The name of the kpi we want to access.}
 }
 \value{
-Returns a data frame that contains for a specific KPI with its id and description.
+Returns a list that contains for a specific KPI with its id and description.
 }
 \description{
 Get KPI

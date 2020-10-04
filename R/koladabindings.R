@@ -68,7 +68,7 @@ kolada_api <- function(path) {
 #' 
 #' @param name The name of the municipality we want to access.
 #' 
-#' @return Returns a data frame that contains all municipalities.
+#' @return Returns a list that contains all municipalities.
 #' @export
 #'
 get_municipality = function(name){
@@ -84,7 +84,7 @@ get_municipality = function(name){
 #' 
 #' @param name The name/code id of the municipality's organizational unit we want to access.
 #' 
-#' @return Returns a data frame that contains all organizational units of a municipality.
+#' @return Returns a list that contains all organizational units of a municipality.
 #' @export
 #'
 get_municipality_groups = function(name){
@@ -101,7 +101,7 @@ get_municipality_groups = function(name){
 #'
 #' @param name The name of the kpi we want to access.
 #' 
-#' @return Returns a data frame that contains for a specific KPI with its id and description.
+#' @return Returns a list that contains for a specific KPI with its id and description.
 #' @export
 #'
 get_kpi = function(name){
@@ -118,7 +118,7 @@ get_kpi = function(name){
 #' 
 #' @param name The name of the group we want to access.
 #' 
-#' @return Returns a data frame that contains information about a specific kpi group.
+#' @return Returns a list that contains information about a specific kpi group.
 #' @export
 #'
 get_kpi_groups = function(name){
@@ -134,10 +134,10 @@ get_kpi_groups = function(name){
 #' Get Search Results
 #' 
 #' @param kpi_list Id of the KPIs as a list.
-#' @param municipality_list Id of the municipality.
-#' @param year_list The years to get.
+#' @param municipality_list Id of the municipalities as a list.
+#' @param year_list The years to get as a list.
 #' 
-#' @return Returns a data frame that contains data about KPIs in a given municipality by a specific (user-defined) year.
+#' @return Returns a list that contains data about KPIs in a given municipality by a specific (user-defined) year.
 #' @export
 #'
 get_search_results = function(kpi_list=NULL, municipality_list=NULL,year_list=NULL){

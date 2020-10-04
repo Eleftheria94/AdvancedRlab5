@@ -10,7 +10,7 @@ get_municipality_groups(name)
 \item{name}{The name/code id of the municipality's organizational unit we want to access.}
 }
 \value{
-Returns a data frame that contains all organizational units of a municipality.
+Returns a list that contains all organizational units of a municipality.
 }
 \description{
 Get a municipality's organizational units
