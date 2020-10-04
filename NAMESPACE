@@ -1,1 +1,5 @@
-export("f")
+export("get_municipality")
+export("get_kpi")
+export("get_municipality_groups")
+export("get_kpi_groups")
+export("get_search_results")

@@ -35,13 +35,23 @@ The Kolada API provides a web-service that accesses Key Performance Indicators (
 
 A detailed description can be found on the following website: <https://github.com/Hypergene/kolada/blob/master/README.rst>
 
+# Code appendix - The `koladabindings.r` file
+
 ```{r echo = FALSE}
-library(httr)
-library(jsonlite)
 
 # Modified template from Best Practices for API Packages 
 # https://cran.r-project.org/web/packages/httr/vignettes/api-packages.html
+require(httr)
+require(jsonlite)
 
+
+#' kolada_api handles the API link
+#' 
+#' @param path The path of the API url.
+#' 
+#' @return Returns a list that contains all data for the given API.
+#' @export
+#'
 kolada_api <- function(path) {
   
   #Add v2 to path
@@ -55,10 +65,10 @@ kolada_api <- function(path) {
     stop("API did not return json", call. = FALSE)
   }
   
-  #Json parser
+  #Json parser-Deserialization
   parsed <- jsonlite::fromJSON(content(resp, "text"), simplifyVector = FALSE)
   
-  # Check Response OK
+  # Check Server Response 
   if (status_code(resp) != 200) {
     stop(
       sprintf(
@@ -82,7 +92,16 @@ kolada_api <- function(path) {
   )
 }
 
+#' Get municipalities
+#' 
+#' @param name The name of the municipality we want to access.
+#' 
+#' @return Returns a data frame that contain all municipalities.
+#' @export
+#'
 get_municipality = function(name){
+  #http://api.kolada.se/v2/municipality?title=lund
+  
   stopifnot(is.character(name))
   stopifnot(!grepl("/",name, fixed=TRUE)) # checking if a string is in another string
   
@@ -91,8 +110,16 @@ get_municipality = function(name){
   return(response$content)
 }
 
-
+#' Get a municipality's organizational units
+#' 
+#' @param name The name/code id of the municipality's organizational unit we want to access.
+#' 
+#' @return Returns a data frame that contains all organizational units of a municipality.
+#' @export
+#'
 get_municipality_groups = function(name){
+  #http://api.kolada.se/v2/ou?municipality=1280
+  
   stopifnot(is.character(name))
   stopifnot(!grepl("/",name, fixed=TRUE))
   
@@ -101,7 +128,15 @@ get_municipality_groups = function(name){
   return(response$content)
 }
 
+#' Get KPI
+#'
+#' @param name The name of the kpi we want to access.
+#' 
+#' @return Returns a data frame that contains for a specific KPI with its id and description.
+#' @export
+#'
 get_kpi = function(name){
+  #http://api.kolada.se/v2/kpi?title=kvinnofridskränkning
   
   stopifnot(is.character(name))
   stopifnot(!grepl("/",name, fixed=TRUE))
@@ -111,7 +146,15 @@ get_kpi = function(name){
   return(response$content)
 }
 
+#' Get KPI groups
+#' 
+#' @param name The name of the group we want to access.
+#' 
+#' @return Returns a data frame that contains information about a specific kpi group.
+#' @export
+#'
 get_kpi_groups = function(name){
+  #http://api.kolada.se/v2/kpi_groups?title=kostnad
   
   stopifnot(is.character(name))
   stopifnot(!grepl("/",name, fixed=TRUE))
@@ -121,7 +164,17 @@ get_kpi_groups = function(name){
   return(response$content)
 }
 
+#' Get Search Results
+#' 
+#' @param kpi_list Id of the KPIs as a list.
+#' @param municipality_list Id of the municipality.
+#' @param year_list The years to get.
+#' 
+#' @return Returns a data frame that contains data about KPIs in a given municipality by a specific (user-defined) year.
+#' @export
+#'
 get_search_results = function(kpi_list=NULL, municipality_list=NULL,year_list=NULL){
+  #http://api.kolada.se/v2/data/kpi/N07402/municipality/1280/year/2011
   
   params = list(kpi=kpi_list,
              municipality=municipality_list,
@@ -144,10 +197,73 @@ get_search_results = function(kpi_list=NULL, municipality_list=NULL,year_list=NU
   return(response$content)
 }
 
-# Examples for testing:
-# a = get_municipality("lund")
-# b = get_municipality_groups("skola")
-# c = get_kpi("Män som tar ut tillfällig föräldrapenning")
-# d = get_kpi_groups("kostnad")
-# e = get_search_results("add example pls")
 ```
+
+## get_municipality()
+
+A method call that contains information about the municipalities in the API.
+
+```{r, eval = FALSE}
+head(get_municipality())
+```
+
+## get_municipality_groups()
+
+A method call that contains data about all organizational units of a municipality.
+
+```{r, eval = FALSE}
+head(get_municipality_groups())
+```
+
+## get_kpi()
+
+A method call that contains information for a specific KPI with its id and description.
+
+```{r, eval = FALSE}
+head(get_kpi())
+```
+
+## get_kpi_groups()
+
+A method call that contains information about a specific KPI group.
+
+```{r, eval = FALSE}
+head(get_kpi_groups())
+```
+
+## get_search_results()
+
+A method call that contains data about KPIs in a given municipality by a specific (user-defined) year.
+
+```{r, eval = FALSE}
+head(get_search_results())
+```
+
+## Shiny app
+
+Our shiny app is designed to display the different values for every municipality.
+
+
+## Examples
+
+The user can access the API by using the following example links included in the appendix. We recommend the use of Google Chrome and Mozilla Firefox.
+
+1. <http://api.kolada.se/v2/municipality?title=lund> [2020-10-04]
+
+2. <http://api.kolada.se/v2/ou?municipality=1280> [2020-10-04]
+
+3. <http://api.kolada.se/v2/kpi?title=kvinnofridskränkning> [2020-10-04]
+
+4. <http://api.kolada.se/v2/kpi_groups?title=kostnad> [2020-10-04]
+
+5. <http://api.kolada.se/v2/data/kpi/N07402/municipality/1280/year/2011> [2020-10-04]
+
+## References
+
+1. <https://dittochdata.netlify.app/2018/06/27/ladda-hem-data-fr%C3%A5n-kolada-med-r/> [2020-10-04]
+
+2. <https://www.kolada.se/?_p=index/API> [2020-10-04]
+
+3. <https://github.com/Hypergene/kolada/blob/master/README.rst> [2020-10-04]
+
+4. <https://shiny.rstudio.com/tutorial/> [2020-10-04]

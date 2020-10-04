@@ -16,6 +16,14 @@
 require(httr)
 require(jsonlite)
 
+
+#' kolada_api handles the API link
+#' 
+#' @param path The path of the API url.
+#' 
+#' @return Returns a list that contains all data for the given API.
+#' @export
+#'
 kolada_api <- function(path) {
   
   #Add v2 to path
@@ -60,7 +68,7 @@ kolada_api <- function(path) {
 #' 
 #' @param name The name of the municipality we want to access.
 #' 
-#' @return Returns a data frame that contain all municipalities.
+#' @return Returns a data frame that contains all municipalities.
 #' @export
 #'
 get_municipality = function(name){
@@ -130,9 +138,9 @@ get_kpi_groups = function(name){
 
 #' Get Search Results
 #' 
-#' @param kpi Id of the KPIs as a list.
-#' @param municipality Id of the municipality.
-#' @param year The years to get.
+#' @param kpi_list Id of the KPIs as a list.
+#' @param municipality_list Id of the municipality.
+#' @param year_list The years to get.
 #' 
 #' @return Returns a data frame that contains data about KPIs in a given municipality by a specific (user-defined) year.
 #' @export

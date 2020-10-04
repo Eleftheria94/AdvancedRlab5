@@ -5,14 +5,6 @@ require(httr)
 require(purr)
 require(tidyr)
 
-
-# Find specific kpi
-url <- "http://api.kolada.se/v2/kpi?title=kvinnofridskränkning"
-
-res <- content(GET(url))
-dfmeta <- map_df(.x = res$values, ~flatten(.x))
-dfmeta
-
 # Find indicator code by accessing KPI
 url <- "http://api.kolada.se/v2/kpi?"
 
@@ -22,7 +14,7 @@ dfmeta
 
 # Download metadata for a specific KPI ID#N07402
 
-url <- "http://api.kolada.se/v2/kpi/N07402"
+url <- "http://api.kolada.se/v2/kpi/N07402" # alternatively the user can type: "http://api.kolada.se/v2/kpi?title=kvinnofridskränkning"
 
 res <- content(GET(url))
 dfmeta <- map_df(.x = res$values, ~flatten(.x))
