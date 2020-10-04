@@ -22,17 +22,17 @@ require(jsonlite)
 #' @param path The path of the API url.
 #' 
 #' @return Returns a list that contains all data for the given API.
-#' @export
+#'
 #'
 kolada_api <- function(path) {
   
   #Add v2 to path
   path = paste("v2/",path,sep="")
   url <- modify_url("http://api.kolada.se/v2/", path = path)
-  
+  URLencode(url)
   #Check response format is json
   resp <- GET(url)
-  print(resp)
+  
   if (http_type(resp) != "application/json") {
     stop("API did not return json", call. = FALSE)
   }
@@ -76,8 +76,6 @@ get_municipality = function(name){
   
   stopifnot(is.character(name))
   stopifnot(!grepl("/",name, fixed=TRUE)) # checking if a string is in another string
-  
-  name = URLencode(name)
   response = kolada_api(paste("municipality?title=",name,sep=""))
   return(response$content)
 }
@@ -95,7 +93,6 @@ get_municipality_groups = function(name){
   stopifnot(is.character(name))
   stopifnot(!grepl("/",name, fixed=TRUE))
   
-  name = URLencode(name)
   response = kolada_api(paste("municipality?ou=",name,sep=""))
   return(response$content)
 }
@@ -113,7 +110,6 @@ get_kpi = function(name){
   stopifnot(is.character(name))
   stopifnot(!grepl("/",name, fixed=TRUE))
   
-  name = URLencode(name)
   response = kolada_api(paste("kpi?title=",name,sep=""))
   return(response$content)
 }
@@ -131,7 +127,6 @@ get_kpi_groups = function(name){
   stopifnot(is.character(name))
   stopifnot(!grepl("/",name, fixed=TRUE))
   
-  name = URLencode(name)
   response = kolada_api(paste("kpi_groups?title=",name,sep=""))
   return(response$content)
 }
@@ -156,6 +151,7 @@ get_search_results = function(kpi_list=NULL, municipality_list=NULL,year_list=NU
   params[sapply(params, is.null)] = NULL
   
   #Input checking
+  stopifnot(length(params)>1)
   sapply(params, function(x) stopifnot(is.list(x)))
   
   #Translate R term list into api term list
@@ -170,9 +166,8 @@ get_search_results = function(kpi_list=NULL, municipality_list=NULL,year_list=NU
 }
 
 # Examples for testing:
-# a = get_municipality("lund")
-# b = get_municipality_groups("skola")
-# c = get_kpi("Män som tar ut tillfällig föräldrapenning")
-# d = get_kpi_groups("kostnad")
-# e = get_search_results("add example pls")
-
+# mun = get_municipality("lund")
+ mun_group = get_municipality_groups("skola")
+ kpi = get_kpi("kvinnofridskränkning")
+ kpi_group = get_kpi_groups("kostnad")
+ search_res = get_search_results(kpi_list = list("N00945"), year_list = list(2009,2010))
