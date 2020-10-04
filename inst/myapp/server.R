@@ -5,17 +5,16 @@ library(shiny)
 require(httr)
 require(jsonlite)
 
-source('AdvancedRlab5/R/koladabindings.R')
+source('C:/Users/marip/Documents/Advanced R_732A94/Labs/AdvancedRlab5/R/koladabindings.R')
 
 server = function(input, output) {
-    municipalitiesDataFrame = get_municipality()
-    municipalityId = as.numeric(as.matrix(municipalitiesDataFrame["values.id"])[match(
-        as.character(input$municipality),
-        as.matrix(municipalitiesDataFrame["values.title"])
-    )])
-    output$municipality = renderDataTable({
-        print(input$municipality)
+    out <- reactive({
+    municipalitiesDataFrame = get_municipality("lund") # is of list class so we will convert it to a data.frame
+    municipalitiesDataFrame = as.data.frame(municipalitiesDataFrame)
+    municipalityId = municipalitiesDataFrame 
     })
+    output$municipality = renderDataTable({
+        out()
+      })
 }
 
-shinyApp(ui = ui, server = server)
