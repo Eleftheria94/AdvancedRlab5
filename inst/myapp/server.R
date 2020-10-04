@@ -13,8 +13,8 @@ server = function(input, output) {
     municipalitiesDataFrame = as.data.frame(municipalitiesDataFrame)
     municipalityId = municipalitiesDataFrame 
     })
-    output$municipality = renderDataTable({
-        out()
+    output$municipalityId = renderDataTable({
+        print(input$municipality)
       })
 }
 
