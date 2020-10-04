@@ -28,25 +28,25 @@ test_that("Wrong user input is detected from get_kpi()", {
 
 ## Testing functionality
 test_that("get_municipality() is working", {
-  df = get_municipality()
+  df = get_municipality(name)
   expect_true(is.data.frame(df))
   expect_equal(df[5, "values.id"], "1280")
 })
 
 test_that("get_kpi() is working", {
-  df = get_kpi()
+  df = get_kpi(name)
   expect_true(is.data.frame(df))
   expect_equal(df[6, "values.id"], "NO7402")
 })
 
 test_that("get_municipality_groups() is working", {
-  df = get_municipality_groups()
+  df = get_municipality_groups(name)
   expect_true(is.data.frame(df))
   expect_equal(df[5, "values.id"], "V15E128000301")
 })
 
 test_that("get_kpi_groups() is working", {
-  df = get_kpi_groups()
+  df = get_kpi_groups(name)
   expect_true(is.data.frame(df))
   expect_equal(df[6, "member_id"], "U28119")
 })

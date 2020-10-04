@@ -239,10 +239,6 @@ A method call that contains data about KPIs in a given municipality by a specifi
 head(get_search_results())
 ```
 
-## Shiny app
-
-Our shiny app is designed to display the different values for every municipality.
-
 
 ## Examples
 

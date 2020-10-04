@@ -10,7 +10,6 @@ Maintainer: Salvador Marti Roman <salvador19marti@gmail.com>
 Description: In this package, we are connecting to the Kolada API using R. The purpose of the package is to read the data taken from the aforementioned API and display it by introducing four functions corresponding to municipal and organizational unit data.
 Encoding: UTF-8
 Depends: R (>= 3.3.0),
-    shiny,
     httr,
     jsonlite
 License: GPL-3
