@@ -11,7 +11,7 @@ Description: In this package, we are connecting to the Kolada API using R. The p
 Encoding: UTF-8
 Depends: R (>= 3.3.0),
 License: GPL-3
-imports:
+Imports:
     shiny
 Suggests: testthat,
     knitr,
